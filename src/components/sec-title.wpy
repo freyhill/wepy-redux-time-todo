@@ -1,0 +1,57 @@
+
+/**
+ * @file:title组件
+ * @desc:页面块儿上方的标题
+ * @author:leinov
+ * @date:2018-10-29
+ */
+
+<style lang="scss">
+.sec-title{
+  margin-bottom: 20rpx;
+}
+.title-main{
+  position: relative;
+  padding-left:16rpx;
+  color:#4C556E;
+  font-size:32rpx;
+}
+.prefix::after{
+  content: "";
+  height: 28rpx;
+  width: 8rpx;
+  position: absolute;
+  bottom:0;
+  top:-2rpx;
+  margin:auto;
+  left:0;
+  background: #007eee;
+}
+</style>
+<template>
+  <view class="sec-title">
+    <view wx:if="{{pre}}" class="title-main prefix bold">{{title}}</view>
+    <view wx:else class="title-main bold">{{title}}</view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class SecTitle extends wepy.component {
+      props = {
+        title:String,
+        pre:String
+      }
+      data = {
+
+      }
+      watch = {
+
+      }
+      methods = {
+
+      }
+      onLoad () {
+      }
+  }
+</script>

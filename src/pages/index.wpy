@@ -1,0 +1,227 @@
+/**
+ * @file: time todolist
+ * @desc: redux time todo list
+ * @author: leinov
+ * @date: 2018-10-29
+ */
+<style lang="scss">
+  @import "../style/weui.scss";
+  page{
+    background: #F7F7FA;
+  }
+  .box{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    /*水平居中*/
+    -webkit-box-align: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    /*垂直居中*/
+    -webkit-box-pack: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+  .bgc_fff{
+    background:#fff;
+  }
+  .time-todo{
+    padding:30rpx;
+  }
+  .picker{
+    border:1rpx solid #F2F0F0;
+    border-radius: 8rpx;
+    color:#8994A2;
+    font-size: 28rpx;
+    padding:20rpx;
+  }
+  .time-item{
+    margin-bottom: 20rpx;
+  }
+  .timeto{
+    color:#8994A2;
+    padding:0 25rpx;
+  }
+  .delete{
+    padding:0 0 0 24rpx;
+    color:#007eee;
+    font-size:28rpx;
+  }
+  .addtime-btn{
+    border:1rpx solid #007eee;
+    background: #fff;
+    color:#007eee;
+    border-radius: 8rpx;
+    height: 70rpx;
+    line-height:70rpx;
+    text-align:center;
+    font-size:28rpx;
+  }
+  .time-result{
+    background:#f2f2f2;
+    font-size:28rpx;
+    color:#333;
+    padding:30rpx;
+    margin-top:30rpx;
+    word-break:break-word;
+  }
+
+</style>
+
+<template lang="wxml">
+  <view class="time-todo bgc_fff">
+    <SecTitle title="时间配置" pre="true"></SecTitle>
+    <!--时间配置-->
+    <view class="mb20">
+      <SecTitle2 title="时间配置" pre="true"></SecTitle2>
+      <view class="time-config">
+        <repeat for="{{timeconfigData}}" index="index" item="item" key="key">
+          <view class="weui-flex time-item">
+            <view class="weui-flex__item" @tap="timeSet({{index}},'start')">
+              <picker mode="time" value="{{item.startTime}}" start="{{item.startTime}}" end="{{item.endTime}}" bindchange="bindTimeChange">
+                <view class="picker">
+                  {{item.startVaule}}
+                </view>
+              </picker>
+           </view>
+           <view class="box timeto">~</view>
+           <view class="weui-flex__item" @tap="timeSet({{index}},'end')">
+             <picker mode="time" value="{{item.endTime}}" start="{{item.startTime}}" end="{{item.endTime}}" bindchange="bindTimeChange">
+               <view class="picker">
+                 {{item.endValue}}
+               </view>
+             </picker>
+            </view>
+            <view class="main_color box font28 delete" @tap="deleteTime({{index}})">删除</view>
+          </view>
+        </repeat>
+      </view>
+      <view class="addtime-btn box font24" @tap="addTime">添加时间段</view>
+    </view>
+    <!--选择时间显示 接口用-->
+    <view class="time-result">{{one_day_time}}</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import { connect,getStore } from 'wepy-redux';
+  import xcxutil from 'xcxutil';
+  import SecTitle from '../components/sec-title';
+  import {
+    addTimeConfig,
+    changeTimeConfig,
+    deleteTimeConfig,
+    timeConfigAction
+  } from '../store/actions/index.js';
+
+  let store=getStore();
+
+  @connect({
+     timeconfigData(state){
+       console.log(state);
+       return state.timeReducer.timeConfigData
+     },
+  })
+
+  export default class TimeTodo extends wepy.page {
+    config = {
+      navigationBarTitleText: 'Time Todo'
+    }
+    components = {
+      SecTitle:SecTitle,
+    }
+    data = {
+      timeConfig:{ //每节课时间段配置初始化值
+          startTime:"08:00",
+          endTime:"18:00",
+          startVaule:"08:00",
+          endValue:"18:00",
+          text:"删除"
+      },
+      pos:[0,"start"],//修改时间的位置 第几行时间 开始时间/结束时间
+      one_day_time:""
+    }
+
+    computed = {
+
+    }
+
+    watch={
+      timeconfigData(newData,oldData){
+        //格式化时间
+        this.formTimeData(newData);
+      }
+    }
+
+    methods = {
+      /**
+       * 添加时间段
+       */
+      addTime(){
+        let that = this;
+        addTimeConfig(that.timeConfig);
+      },
+
+      /**
+       * 修改时间段
+       *
+       * @param  {event} e 点击切换时间
+       */
+      bindTimeChange:function(e){
+        let that = this;
+        let value =  e.detail.value;
+        changeTimeConfig(value,that.pos);
+        this.$apply();
+      },
+
+      /**
+       * 同bindTimeChange 点击时获取当前操作的时间的位置，
+       *
+       * @param  {Number} index 操作的是第几行的时间
+       * @param  {String} type //start end  操作的开始时间还是结束时间的数据
+       */
+      timeSet:function(index,type){
+        this.pos = {index:index,type:type};
+      },
+
+      /**
+       * 删除时间段
+       *
+       * @param  {Number} index 删除时间的索引
+       */
+      deleteTime(index){
+        if(store.getState().timeReducer.timeConfigData.length<=1){
+          xcxutil.modal("必须设置一个时间段");
+          return;
+        }
+        deleteTimeConfig(index)
+      },
+
+    }
+
+    /**
+     * 格式化时间段，请求接口使用
+     *
+     * @param  {Object} timeData
+     * @return {Array}    ["9:00,10:00","11:00,12:00"]
+     */
+    formTimeData(timeData){
+      let one_day_time = [];
+      for(let time of timeData){
+        const start = time.startVaule;
+        const end  = time.endValue;
+        const timeItem = `${start},${end}`;
+        one_day_time.push(timeItem);
+      }
+      console.log(one_day_time);
+      this.one_day_time = JSON.stringify(one_day_time);
+      this.$apply();
+    }
+
+    onLoad() {
+      let that = this;
+      addTimeConfig(that.timeConfig);
+    }
+  }
+</script>
