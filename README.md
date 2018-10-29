@@ -1,2 +1,2 @@
 # wepy-redux-time-todo
-使用wepy实现wepy的todolist
+![image](https://github.com/leinov/leinov.github.io/raw/master/img/timeredux.gif)
