@@ -1,0 +1,2 @@
+*.wpy linguist-language=wepy
+*.js linguist-language=vue
