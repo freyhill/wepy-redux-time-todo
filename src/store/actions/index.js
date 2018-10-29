@@ -1,10 +1,8 @@
 /**************************
  * @file: 所有页面的Action
- * @desc: 该文件属于优化项目，之前每个页面都用一个action，
- * 但其实业务量不是很大，每次都要新建action，reducer就显得繁琐，
- * 而且有些方法可以提取公用，为了便捷开发和后期扩展维护，所以全部整合到一个文件下
+ * @desc: 该文件包含action 和业务方法
  * @author: leinov
- * @date: 2018-10-24
+ * @date: 2018-10-29
  **************************/
 
 import xcxutil from "xcxutil";
@@ -16,7 +14,7 @@ import {
 
 let store=getStore();
 
-// 创建课程 时间段设置action
+// 时间段设置action
 export function timeConfigAction(newData) {
 	return { type: TIME_CONFIG_DATA, newData };
 }
@@ -75,5 +73,4 @@ export function deleteTimeConfig(index){
 	let copy  = xcxutil.deepCopy(timeConfigData);
 	copy.splice(index,1);
 	store.dispatch(timeConfigAction(copy));
-
 }

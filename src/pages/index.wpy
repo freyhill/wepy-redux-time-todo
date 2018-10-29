@@ -126,7 +126,7 @@
 
   export default class TimeTodo extends wepy.page {
     config = {
-      navigationBarTitleText: 'Time Todo'
+      navigationBarTitleText: 'Redux Time Todo'
     }
     components = {
       SecTitle:SecTitle,
@@ -159,7 +159,7 @@
        * 添加时间段
        */
       addTime(){
-        let that = this;
+        const that = this;
         addTimeConfig(that.timeConfig);
       },
 
@@ -169,8 +169,8 @@
        * @param  {event} e 点击切换时间
        */
       bindTimeChange:function(e){
-        let that = this;
-        let value =  e.detail.value;
+        const that = this;
+        const value =  e.detail.value;
         changeTimeConfig(value,that.pos);
         this.$apply();
       },
@@ -220,7 +220,7 @@
     }
 
     onLoad() {
-      let that = this;
+      const that = this;
       addTimeConfig(that.timeConfig);
     }
   }
