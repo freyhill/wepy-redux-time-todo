@@ -177,4 +177,4 @@ import { connect } from 'wepy-redux'
 </template>
 ```
 
-> 其他方法都与在react中使用相同， 通过上面的配置就就可以在wepy中使用redux了，详细代码参考[code](https://github.com/leinov/wepy-redux-time-todo)
+> 其他方法都与在react中使用相同， 通过上面的配置就可以在wepy中使用redux了，详细代码参考[code](https://github.com/leinov/wepy-redux-time-todo)
