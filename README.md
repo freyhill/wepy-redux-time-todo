@@ -1,6 +1,5 @@
 # wepy-redux-time-todo
 ![image](https://github.com/leinov/leinov.github.io/raw/master/img/timeredux.gif)
-
 ## Use
 ```
 git clone git@github.com:leinov/wepy-redux-time-todo.git
@@ -9,10 +8,10 @@ npm install
 
 npm run dev
 ```
-
-## WIKI
+添加到微信开发者工具里即可运行
+## Wiki
 ### 创建项目
-首先需要安装wepy命令，通过命令创建wepy项目，在执行下面第二句命令过程中会有一些问题，在到是否使用redux的问题时选y，在创建时就会加入redux依赖以及store文件夹
+wepy是腾讯自出的一套小程序框架，基于Vue写法，也可以灵活使用第三方库，对原生的api也做了部分优化，提高了整体代码的可读性和可维护性，也极大的提高了开发效率，极力推荐使用。首先需要安装wepy命令，通过命令创建wepy项目，在执行下面第二句命令过程中会有一些问题，在到是否使用redux的问题时选y，在创建时就会加入redux依赖以及store文件夹
 ```
 npm install wepy-cli -g //安装全局wepy命令
 
@@ -177,4 +176,4 @@ import { connect } from 'wepy-redux'
 </template>
 ```
 
-> 其他方法都与在react中使用相同， 通过上面的配置就可以在wepy中使用redux了，详细代码参考[code](https://github.com/leinov/wepy-redux-time-todo)
+> 其他方法都与在react中使用相同，通过上面的配置就可以在wepy中使用redux了，详细代码参考[code](https://github.com/leinov/wepy-redux-time-todo)
