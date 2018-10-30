@@ -119,7 +119,6 @@
 
   @connect({
      timeConfigData(state){
-       console.log(state);
        return state.timeReducer.timeConfigData
      },
   })
@@ -148,7 +147,7 @@
     }
 
     watch={
-      timeconfigData(newData,oldData){
+      timeConfigData(newData,oldData){
         //格式化时间
         this.formTimeData(newData);
       }
@@ -207,6 +206,7 @@
      * @return {Array}    ["9:00,10:00","11:00,12:00"]
      */
     formTimeData(timeData){
+      console.log(111111);
       let one_day_time = [];
       for(let time of timeData){
         const start = time.startVaule;
