@@ -5,7 +5,7 @@
  **************************/
 import { handleActions } from "redux-actions";
 import {
-	TIME_CONFIG_DATA, // 学员
+	TIME_CONFIG_DATA, // 时间
 } from "../types/index";
 
 export default handleActions({

@@ -36,12 +36,13 @@ export function addTimeConfig(newData) {
 /**
  * 修改时间段
  *
- * @param  {type} value 选择的时间的值
- * @param  {type} pos   修改的位置
- * @return {type}       description
+ * @param  {String} value 选择的时间的值
+ * @param  {Array} pos  [0,start] 修改的位置
+ * @return {Promise}
  */
 export function changeTimeConfig(value,pos) {
 	let timeConfigData = store.getState().timeReducer.timeConfigData;
+	//深拷贝出数据做修改
 	let copy  = xcxutil.deepCopy(timeConfigData);
 	copy.map((item,index)=>{
 		if(pos.index === index){

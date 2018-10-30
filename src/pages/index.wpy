@@ -75,7 +75,7 @@
     <view class="mb20">
       <SecTitle2 title="时间配置" pre="true"></SecTitle2>
       <view class="time-config">
-        <repeat for="{{timeconfigData}}" index="index" item="item" key="key">
+        <repeat for="{{timeConfigData}}" index="index" item="item" key="key">
           <view class="weui-flex time-item">
             <view class="weui-flex__item" @tap="timeSet({{index}},'start')">
               <picker mode="time" value="{{item.startTime}}" start="{{item.startTime}}" end="{{item.endTime}}" bindchange="bindTimeChange">
@@ -118,7 +118,7 @@
   let store=getStore();
 
   @connect({
-     timeconfigData(state){
+     timeConfigData(state){
        console.log(state);
        return state.timeReducer.timeConfigData
      },
