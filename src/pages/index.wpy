@@ -206,7 +206,6 @@
      * @return {Array}    ["9:00,10:00","11:00,12:00"]
      */
     formTimeData(timeData){
-      console.log(111111);
       let one_day_time = [];
       for(let time of timeData){
         const start = time.startVaule;
