@@ -1,2 +1,3 @@
-*.wpy linguist-language=wepy
-*.js linguist-language=vue
+*.wpy linguist-language=Vue
+
+*.js linguist-language=Vue
